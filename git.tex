@@ -1,0 +1,385 @@
+Dit gedeelte is bedoeld om je bekend te maken met het distributed
+version control system {\tt git}. We maken daarbij gebruik van
+bestaande online materialen. \\
+
+\stepreset
+  
+\step Lees \url{http://progit.org/book/ch1-3.html}. Deze pagina vertelt
+de beginselen van {\tt git}. \\
+
+\step We gaan nu gebruik maken van Github. Ga naar \url{https://github.com/plans} en maak een gratis - dat
+wil zeggen een open source - account aan. Als je dit practicum met zijn
+tweeën doet, maak dan allebei een eigen account aan, bij voorkeur op
+gescheiden systemen. Als je alleen werkt, maak dan twee accounts aan.
+Je hebt dan wel twee verschillende e-mailadressen nodig\footnote{Met
+  Gmail kun je dit faken door {\tt +\ldots} achter je e-mailnaam te zetten.
+  Bijvoorbeeld: {\tt michielborkent+student1@gmail.com}}. Dit is belangrijk verderop in
+het practicum. Je moet dan namelijk iemand toe kunnen voegen als
+collaborator aan jouw repository. Het is handig als je jouw
+practicumpartner dan kan toevoegen, dus moet hij of zij een
+ook een Github-account hebben.\\
+
+\step Installeer daarna {\tt git}. Volg daarvoor het volgende stappenplan:
+\url{http://help.github.com/win-set-up-git/}. Via deze link zijn ook
+manuals voor linux of Mac OS X beschikbaar. Het is belangrijk dat je
+ook het gedeelte over ssh-keys voltooit! Er wordt van een ssh-key
+gebruik gemaakt bij het uploaden, of beter in {\tt git}-terminologie:
+pushen naar Github. Gebruik bij het aanmaken van
+de ssh-key hetzelfde e-mailadres als waarmee je je hebt aangemeld bij
+Github. \\
+
+\step In deze stap wordt uitgegaan van Windows. Als je al een linux-
+of Mac OS X gebruiker bent, dan kan je deze stap waarschijnlijk
+overslaan. Open ``Git Bash'' (hierna kortweg bash genoemd) via Start Menu. Om met deze console te kunnen
+werken moet je wel enkele Unix-zaken c.q. Bash-commando's kennen.
+Probeer er eens wat uit.
+
+\begin{itemize}
+\item Directories worden genoteerd met een / ipv een \textbackslash 
+\item  Het station (in Windows bijvoorbeeld {\tt c:} of {\tt d:})
+  wordt aangegeven met {\tt /<station>}. Dus de directory {\tt c:\textbackslash
+    projects\textbackslash les3} wordt in bash
+  weergegeven als {\tt /c/projects/les3}.
+\item Het commando {\tt mkdir}: een directory aanmaken. Bijvoorbeeld
+  {\tt mkdir /c/projects}.
+\item Het commando {\tt cd}, dat is ``change directory''. Bijvoorbeeld  {\tt cd /c/projects/les3}
+\item {\tt ls}: opvragen inhoud directory ({\tt dir} in cmd.exe)
+\item {\tt rm}: een bestand verwijderen ({\tt del} in cmd.exe)
+\end{itemize}
+
+Zie verder deze lijst met bash-commando's: \url{http://ss64.com/bash/}.
+Daarnaast is het handig om te weten dat als je op het icoontje in de
+linkerbovenhoek van ``Git Bash'' klikt, je kunt knippen, plakken, etc.
+Gebruik de tab-toets voor auto-completion.\\
+
+%\step Lees hier hoe je je username en e-mail in kunt stellen: \url{http://progit.org/book/ch1-5.htm%l}. Deze
+%instellingen zijn van belang bij ``commit messages''. De rest
+%mag je voor nu negeren, tenzij je zelf behoefte hebt om nog meer te
+%configureren. 
+
+%\step Maak een directory aan waar je zometeen je git-projecten neer
+%kan zetten, bv: {\tt mkdir /c/projects} en dan {\tt
+%    mkdir /c/projects/project1}. \\
+
+\step Kies op de Github-website (als je bent ingelogd) ``New Repository''. Vul bij ``Project Name'' in: ``les3''
+en bij ``Description'': ``test voor les 3''. Kies vervolgens ``Create
+Repository''. Als het goed is krijg je nu een soortgelijk scherm te
+zien als in figuur \ref{fig:github-new}. \\
+
+\begin{figure} 
+  \caption{Github}
+  \includegraphics[width=\textwidth]{pictures/github-new-project.png}
+  \label{fig:github-new}
+\end{figure}
+
+\step Voer nu de stappen uit die in het scherm staan genoemd, in bash. Ga alvorens dat te doen even naar de directory waar je je
+programmeerprojecten bewaard met {\tt cd}. In die directory ga je dan zometeen een
+directory genaamd {\tt les3 } maken tijdens het uitvoeren van de
+stappen ({\tt mkdir les3}). \\
+
+Uitleg bij de stappen.
+\begin{itemize}
+  \item {\tt git init} - hiermee maak je van de huidige directory een
+    git repository. Tevens wordt er een {\tt .git}-directory
+    aangemaakt in {\tt les3} waarin allerlei informatie staat. 
+    Er staat nu nog niks in de repository. Als er
+    al wel files in de directory stonden, zijn deze niet automatisch
+    toegevoegd aan de git repository. Git kent, zoals je in de
+    introductie hebt kunnen lezen drie niveaus. Zie ook figuur \ref{fig:github-areas}.
+    \item {\tt touch README} - hiermee maak je een (lege) file aan met
+      de naam {\tt README}. Dat zou je kunnen controleren door de
+      inhoud van de directory op te vragen met {\tt ls}.
+    \item {\tt git add README} - hiermee voeg je de file {\tt README}
+      toe aan de staging area (zie weer figuur
+      \ref{fig:github-areas}). Alles wat is toegevoegd aan de staging
+      area zal met een commit worden toegevoegd aan de git repository.
+    \item {\tt git commit -m 'first commit'} - hier wordt er een
+      daadwerkelijke commit gedaan met als commit message ``first 
+      commit''.
+      \item {\tt git remote add origin git@github.com:\ldots/les3.git}
+        - als remote repository, genaamd {\tt origin} (je had ook een andere
+        naam kunnen kiezen), wordt de repository toegevoegd die je net
+        op github.com hebt aangemaakt.
+      \item {\tt push -u origin master} - verstuur de inhoud van onze
+        {\tt master} branch (dit is de branch waarin we nu werken)
+        naar de remote repository {\tt origin}. {\tt -u} zorgt ervoor
+        dat we de volgende keer simpelweg: {\tt push} kunnen typen om
+        de inhoud van de {\tt master} branch naar {\tt origin} te sturen.
+\end{itemize}
+
+\begin{figure} 
+\begin{center}
+  \caption{Git: drie niveaus. (\href{http://progit.org/book/ch1-3.html}{Bron})}
+  \includegraphics[width=0.5\textwidth]{pictures/git-areas.png}
+  \label{fig:github-areas}
+\end{center}
+\end{figure}
+
+\step Je kunt bij git-commando's documentatie raadplegen. Als je
+bijvoorbeeld meer wil weten over {\tt git push} in bovenstaande lijst
+kun je dat opzoeken in de documentatie van {\tt git push}. 
+Typ om die documentatie op te vragen
+{\tt git help push} in in de console, gevolgd door een enter. Er opent
+zich nu een webbrowser met de gevraagde documentatie. Als je de
+algemene documentatie van {\tt git} wil raadplegen, typ je simpelweg {\tt
+  git help} \\
+
+\step Bekijk nu op Github het resultaat van je eerste push! Dit zou
+zichtbaar moeten zijn onder de volgende url:
+\url{https://github.com/<username>/les3} met voor {\tt <username>}
+jouw username ingevuld. \\
+
+\step Klik op het tabje ``Commits''. Daar vind je een SHA-key van jouw
+commit. Er zijn vier soorten objecten in {\tt git}: blobs (files), trees
+(directories), commits en tags. Al deze vier soorten objecten worden
+geïdentificeerd aan de hand van een unieke SHA1-hash\footnote{Voor meer info
+  over SHA1 zie \url{http://en.wikipedia.org/wiki/SHA-1}}. Lees nu het
+gedeelte over het object-model van {\tt git}:
+\url{http://book.git-scm.com/1_the_git_object_model.html}. \\
+
+\step Kopieer de SHA1-hash (vanaf nu kortweg sha genoemd) van je
+eerste commit en typ in bash: {\tt git show <sha>}, waarbij je je
+eigen sha invult, bijvoorbeeld: {\tt git show
+  d3d01ef8fbaac87f9a3cedfc2839a132b2740937}. {\tt Git} laat nu informatie
+zien over je eerste commit. \\
+
+\step Lees nu het gedeelte over de git-index. {\tt Git} maakt onderscheid
+tussen de ``working directory'', de ``index'' of ``staging area'' en
+de ``repository'' (zie nogmaals \ref{fig:github-areas}!). Wijzigingen
+in de working directory worden niet automatisch meegenomen in een
+commit. Je moet ze eerst toevoegen aan de index. Met behulp van het
+commando {\tt git status} kan je zien wat er in de index staat en dus
+klaar staat om gecommit te worden. \\
+
+\step Maak drie nieuwe files aan door {\tt touch file1 file2 file3} te
+typen. Maak wat wijzigingen in deze files met bijvoorbeeld Notepad.
+Typ vervolgens {\tt git status}. Git komt nu met de melding: {\tt
+  nothing added to commit but untracked files present}. Oftewel: bij
+een volgende commit zal er niets worden ingecheckt in de repository,
+maar er staan wel wijzigingen in de working directory.
+Je zal de wijzigingen (nieuwe files zijn ook wijzigingen) eerst moeten
+toevoegen aan de index. \\
+
+\step Typ {\tt git add file1 file2 file3}. Probeer nu nogmaals {\tt
+  git status}. Git komt nu met een beschrijving van wat er toegevoegd
+is aan de index: drie nieuwe files. Ook vertelt git ons hoe we de
+index kunnen terugzetten naar {\tt HEAD}. {\tt HEAD} is een afkorting
+voor de sha die
+correspondeert met onze laatste commit. Dit kan je ook zien aan de
+hand van het volgende commando wat de sha laat zien van {\tt HEAD}:
+{\tt git rev-parse HEAD}. Dit levert de sha op van onze laatste
+commit. \\
+
+\step Typ {\tt git reset HEAD}. We draaien de index terug naar het
+moment van onze laatste commit. Bestaan file1, file2 en file3 nog en
+is hun inhoud nog intact? Leg uit hoe dit komt. \\
+
+\step We gaan nu weer opnieuw de files toevoegen aan de index, om ze
+vervolgens te committen. Dit zal dan onze tweede commit worden. Je kan
+alle nieuwe files en wijzigingen in die files toevoegen door {\tt git
+  add .} te typen. Typ daarna {\tt git status} om te controleren wat
+er zich in de staging area bevindt.
+
+\step Typ nu {\tt git commit -m 'drie nieuwe files toevoegd'}. Met
+{\tt -m} geef je een commit message mee. Als je dit niet doet, opent
+er een editor waarin je de commit message moet intypen. Standaard
+is dat de editor VIM. Als je een andere editor wilt gebruiken moet je
+dit instellen. Bijvoorbeeld voor Notepad: {\tt git config
+  --global core.editor notepad}. Typ
+nogmaals {\tt git rev-parse HEAD}. Zie je dat de sha van HEAD nu
+gewijzigd is? Deze sha is de identifier van onze laatste commit. 
+Je zou nu een push naar Github kunnen doen. Weet je nog hoe dit moest? \\
+
+\step Grafische weergave. Typ nu in bash {\tt gitk}. Je ziet
+nu een grafische weergave van de history. Ook kun je de sha's van de
+beide commits terugvinden. Als je een push hebt gedaan naar Github zie
+je dat {\tt master} gelijk is aan {\tt remotes/origin/master}. Bekijk
+wat er verder allemaal te zien is in {\tt gitk} en sluit de
+applicatie. \\ 
+
+\begin{figure} 
+\begin{center}
+  \caption{Gitk geeft een grafische weergave van de history}
+  \includegraphics[width=\textwidth]{pictures/gitk-1.png}
+  \label{fig:gitk-1}
+\end{center}
+\end{figure}
+
+\step Ga nu verder vanaf de volgende webpagina. Het vormt een herhaling
+van wat we hierboven al gedaan hebben, maar het kan geen kwaad om het
+nog eens te doen en het nog eens op je in te laten werken.
+\url{http://book.git-scm.com/3_normal_workflow.html} \\
+
+\step Branching. Een van de bijzonderheden van {\tt git} is dat je
+kosteloos lokaal een branch kan maken van je repository, waarin je
+even kan experimenteren. Mocht het experiment op niks uitlopen, dan
+verwijderen je gewoon de branch. Mocht er iets succesvols uitkomen,
+dan kun je jouw experiment met de master-branch mergen. 
+De volgende pagina gaat daar over. Lees de
+pagina en volg de instructies:
+\url{http://book.git-scm.com/3_basic_branching_and_merging.html}. Je
+vraag je misschien af waar {\tt git reset --hard} voor staat. Lees dan
+deze pagina nog door: \url{http://progit.org/2011/07/11/reset.html}. \\
+
+\step We gaan nu met meerdere mensen aan hetzelfde project werken,
+zoals je ook gewend bent in een themaopdracht. Je moet eerst iemand
+toegang geven in Github als collaborator. Ga naar je repository,
+selecteer ``Admin'' en vervolgens ``Collaborators''. Kies dan de naam
+van je Github-partner en klik op Add. Jouw Github-partner krijgt nu
+een bericht in zijn inbox dat hij push-rechten heeft tot jouw
+repository.
+
+\step We werken nu verder op het systeem van je Github-partner. Als je
+alleen werkt kun je dit faken door het project zometeen in een andere directory
+te clonen. Wel moet je inloggen met je tweede account bij Github om te
+simuleren alsof je met zijn tweeën werkt. De voorkeur heeft het zeker om een ander systeem dan
+waarmee we zojuist hebben gewerkt te gebruiken, om het samenwerken aan een
+themaopdracht beter te kunnen simuleren. Als je nog geen {\tt git} hebt
+geïnstalleerd op het andere systeem moet je dat eerst doen.
+
+Log in met het account van je Github-partner bij Github en
+bezoek dan de repository die zojuist is aangemaakt. Je bezoekt dus een
+repository van een ander account dan waarmee je nu bent ingelogd, maar
+die jou wel push-rechten heeft gegeven. Kopieer de git-link. Deze ziet
+er ongeveer zo uit: {\tt git@github.com:<naam>/les3.git}. Open nu
+bash en {\tt cd} naar een directory waar je de repo kan neerzetten. Vervolgens
+gaan we in deze directory de repository clonen: {\tt git clone} gevolgd door
+de gekopieerde git-link. \\
+
+\step Nu gaan we wat wijzigen verrichten aan onze lokale repository.
+Open file1, maak de file leeg en typ op de eerste regel: {\tt tekst
+  systeem partner}. Sla de file op en typ vervolgens {\tt git add file1} gevolgd door
+{\tt git commit -m 'een regel tekst
+  toegevoegd'}. \\
+
+\step Typ nu: {\tt git log}. Je ziet nu informatie over de drie
+commits. Onze lokale repo loopt één commit voor op origin/master, de
+repo op Github. \\
+
+\step Haal de sha van de commit uit de logs van voor de wijziging aan
+file1. En typ dan: {\tt git reset <sha>}. Je krijgt nu van {\tt git}
+de melding dat er unstaged changes zijn na de reset. Dit betekent dat
+file1 nog steeds de wijzigingen bevat van zojuist, maar dat deze
+wijziging niet niet gestaged is, d.w.z. nog niet is toevoegd aan de
+index. Je kunt dus een reset doen, zonder de files in je working
+directory te wijzigen. \\
+
+\step Om de wijziging écht terug te draaien zullen we de optie {\tt
+  --hard} moeten meegeven aan {\tt git reset <sha>}. Probeer het dus
+nogmaals, maar nu met {\tt git reset <sha> --hard}. \\
+
+\step Bekijk de inhoud van file1. Je kunt nu zien dat de wijziging is
+teruggedraaid. Wees dus voorzichtig wanneer je {\tt --hard} gebruikt,
+je files in de working directory kunnen hierdoor wijzigen. Zorg er
+wederom voor dat file1 leegt wordt en voeg daarna op de eerste regel
+weer {\tt tekst systeem partner} toe. Doe vervolgens {\tt git commit -a -m
+  'wijziging in file1'}. De optie {\tt -a} geeft aan dat je gewoon
+alle wijzigingen in bestaande files (niet van nieuwe files) wil stagen
+en committen. \\ 
+
+\step Doe een {\tt git status}. Je krijgt nu de melding dat onze
+lokale repository één commit voorloopt op origin/master. Nu gaan we
+onze wijziging doorsluizen naar Github. Dit kan met {\tt git
+  push origin master}. Kijk op Github of de wijziging is doorgekomen. \\
+
+\step Stap nu weer over naar het andere systeem waarmee we begonnen.
+Maak ook hier file1 leeg en voeg op de eerste regel de tekst {\tt
+  tekst mijn eigen systeem} toe, en add+commit deze wijziging. Probeer dan
+een {\tt git push}. Als het goed is weigert {\tt git}deze wijziging. We
+moeten namelijk van {\tt git}eerst een pull doen (volgende stap). Dit is het omgekeerde van
+push: we gaan wijzigingen van de Github-repo (origin/master) naar onze
+eigen repo halen. \\
+
+\step Doe {\tt git pull}. {\tt Git} haalt nu de wijzigingen vanaf Github
+naar onze lokale repo. Omdat er nu een conflict is op de eerste regel
+van file1, zullen we handmatig moeten bepalen wat we hiermee doen.
+Toevoegingen of verwijderingen kan {\tt Git} automatisch oplossen, maar
+wijzigingen op dezelfde regel niet. De inhoud
+van file1 zal er nu ongeveer zo uit zien:
+
+\begin{minted}{raw}
+<<<<<<< HEAD
+tekst mijn eigen systeem
+=======
+tekst systeem partner
+>>>>>>> e70c12d8fc8e7f0eae9cf43405ea32741f7bbd15
+\end{minted}
+
+De tekst tussen {\tt <<<<<<< HEAD} en {\tt =======} is de tekst van
+revisie HEAD, de huidige revisie dus. De tekst tussen {\tt =======} en
+{\tt >>>>>>> e70c12d8fc8e7f0eae9cf43405ea32741f7bbd15} (waarbij de sha
+heel waarschijnlijk zal verschillen van de jouwe!) is afkomstig van
+jouw Github-partner. We moeten nu kiezen wat we gaan doen.
+Als we besluiten om beide regels te houden, dan moeten we de rest van
+de tekst die het conflict aangeeft verwijderen en opnieuw een
+add+commit doen. De tekst in file1 wordt nu dus: 
+
+\begin{minted}{raw}
+tekst mijn eigen systeem
+tekst systeem partner
+\end{minted}
+
+Doe vervolgens weer een add+commit. \\
+
+\step Push de wijziging weer naar Github en kijk of het goed is
+aangekomen. Bekijk ook de history van de file. Je kunt de wijzigingen
+per commit terugkijken. \\
+
+\step Ga vervolgens weer naar het systeem van de Github-partner. Doe
+daar een {\tt git pull}. Vervolgens zijn beide collaborators up to
+date. Doe een {\tt gitk} om een grafische representatie te bekijken
+van de commits. Maak daarvan een screenshot en plak deze in je
+portfolio met een toelichting erbij. \\
+
+\step Op een bepaald moment gedurende de ontwikkeling van een project
+wil je soms een (herkenbare) versie vastleggen. Niet alleen voor
+ontwikkelaars zelf is het handig om over versie 1.2 of 0.5-beta te
+praten, maar ook voor de buitenwereld is het handig om te weten welke
+versie van een project bruikbaar is in een bepaalde context. Daarvoor
+kun je in {\tt git} tags gebruiken. Tags corresponderen met een
+bepaalde commit-sha van het project. Stel dat we nu bepaald hebben dat
+ons project les3 klaar is om als versie 0.1 de wereld in te gaan, dan
+kunnen we dat aan git vertellen als volgt: {\tt git tag -a v0.1 -m
+  'version 0.1'}. Om de tag zichtbaar te krijgen in Github moet je bij
+push nog een extra optie meegeven: {\tt git push --tags}. Probeer dit
+uit. Kijk nu onder het tabje tags van het project op Github. Daar zie
+je als het goed is de tag. Ook is er bij elke tag de optie om die
+versie van het project te downloaden als zip: handig voor mensen die
+wel jouw code willen hebben, maar even geen {\tt git} (willen)
+gebruiken. Voor meer info over tagging zie
+\url{http://learn.github.com/p/tagging.html}. 
+
+We weten nu (net) genoeg om via {\tt git} en Github samen te kunnen werken
+aan een project Nog wat laatste tips:
+
+\begin{itemize}
+\item Met {\tt git add .} voeg je alle wijzigingen, inclusief nieuwe
+  files in één keer toe aan de index
+\item Met {\tt git commit -a} voeg je alle wijzigingen toe aan de
+  index én doe je een commit. Pas op: nieuwe files worden hierbij
+  niet meegenomen. In dat geval moet je eerst {\tt git add .}
+  doen.
+\item Het is zeer aan te bevelen de documentatie over tags,
+  .gitignore, rebasing, etc. een andere keer eens rustig door te nemen. Ga in dat
+  geval verder vanaf de webpagina
+  \url{http://book.git-scm.com/3_git_tag.html}. 
+\item Als je geen contributor bent of mag worden van een bepaald
+  project op Github, kun je altijd het project forken. Er ontstaat dan
+  een kopie van het andere project onder jouw Github-account en daar
+  kun je dan je eigen ding in doen. Mocht je iets heel cools hebben
+  gemaakt, of bepaalde bugs hebben opgelosts, dan kan je een pull
+  request indienen bij het oorspronkelijke project. Zij ontvangen dan
+  een bericht waarin ze de keuze hebben om wel of niet jouw
+  wijzigingen te accepteren.
+\end{itemize}
+
+\subsubsection{Links}
+\url{http://www.github.com} \\
+\url{http://book.git-scm.com/} \\
+\url{http://progit.org/book/} \\
+\url{http://gitref.org/}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "dictaat"
+%%% End: 
